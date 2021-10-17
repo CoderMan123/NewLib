@@ -1617,7 +1617,7 @@ function library:Init()
 	
 	self.base = self.base or self:Create("ScreenGui")
 	self.base.Parent = game:GetService"CoreGui"
-	self.base.Name == "UILib"
+	self.base.Name = "UILib"
 	self.cursor = self.cursor or self:Create("Frame", {
 		ZIndex = 100,
 		AnchorPoint = Vector2.new(0, 0),
