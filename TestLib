@@ -1614,8 +1614,9 @@ end
 local UIToggle
 local UnlockMouse
 function library:Init()
-	self.base.Name = "UILib"
+	
 	self.base = self.base or self:Create("ScreenGui")
+	self.base.Name = "UILib"
 	self.base.Parent = game:GetService"CoreGui"
 	
 	self.cursor = self.cursor or self:Create("Frame", {
