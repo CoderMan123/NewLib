@@ -55,6 +55,7 @@ function Library:CreateWindow(Config, Parent)
 	end
 	]]
 	
+	
 	Screen.Name =  HttpService:GenerateGUID(false)
 	Screen.Parent = Parent
 	Topbar.WindowName.Text = Config.WindowName
@@ -159,6 +160,7 @@ function Library:CreateWindow(Config, Parent)
 		end
 	end)
 
+	warn("who made these shitty slider calculations?, Fixed by Sypse#6005")
 	function WindowInit:CreateTab(Name)
 		local TabInit = {}
 		local Tab = Folder.Tab:Clone()
@@ -443,7 +445,8 @@ function Library:CreateWindow(Config, Parent)
 				Slider.Parent = Section.Container
 				
 				Slider.Title.Text = Name
-				Slider.Slider.Bar.Size = UDim2.new(Min / Max,0,1,0)
+				Slider.Slider.Bar.Size = UDim2.new((DefaultLocal - Min)/(Max - Min),0,1,0)
+                
 				Slider.Slider.Bar.BackgroundColor3 = Config.Color
 				Slider.Value.PlaceholderText = tostring(Min / Max)
 				Slider.Title.Size = UDim2.new(1,0,0,Slider.Title.TextBounds.Y + 5)
@@ -464,8 +467,9 @@ function Library:CreateWindow(Config, Parent)
                     Callback(GlobalSliderValue)
                 end
 				local function SetValue(Value)
+
 					GlobalSliderValue = Value
-					Slider.Slider.Bar.Size = UDim2.new(Value / Max,0,1,0)
+					Slider.Slider.Bar.Size = UDim2.new((Value - Min)/(Max - Min),0,1,0)
 					Slider.Value.PlaceholderText = Value
 					Callback(Value)
 				end
@@ -479,7 +483,7 @@ function Library:CreateWindow(Config, Parent)
 					end
 		
 					GlobalSliderValue = Slider.Value.Text
-					Slider.Slider.Bar.Size = UDim2.new(Slider.Value.Text / Max,0,1,0)
+					Slider.Slider.Bar.Size = UDim2.new(Slider.Value.Text / Max)
 					Slider.Value.PlaceholderText = Slider.Value.Text
 					Callback(tonumber(Slider.Value.Text))
 					Slider.Value.Text = ""
@@ -533,7 +537,7 @@ function Library:CreateWindow(Config, Parent)
 				if Default == nil then
 					function SliderInit:SetValue(Value)
 						GlobalSliderValue = Value
-						Slider.Slider.Bar.Size = UDim2.new(Value / Max,0,1,0)
+						Slider.Slider.Bar.Size = UDim2.new((DefaultLocal - Min)/(Max - Min),0,1,0)
 						Slider.Value.PlaceholderText = Value
 						Callback(Value)
 					end
@@ -777,5 +781,4 @@ function Library:CreateWindow(Config, Parent)
 	end
 	return WindowInit
 end
-
 return Library
